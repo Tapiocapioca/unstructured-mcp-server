@@ -98,6 +98,30 @@ async def parse_document(
         return {"error": f"Parse failed: {str(e)}"}
 
 
+@mcp.tool()
+async def parse_batch(file_paths: list[str]) -> list[dict]:
+    """
+    Parse multiple documents in batch.
+
+    Args:
+        file_paths: List of absolute paths to files
+
+    Returns:
+        List of results, one per file (success or error)
+    """
+    results = []
+
+    for file_path in file_paths:
+        result = await parse_document(file_path, strategy="auto")
+        results.append({
+            "file": file_path,
+            "success": "error" not in result,
+            **result
+        })
+
+    return results
+
+
 def main():
     """Entry point for the MCP server."""
     mcp.run()
