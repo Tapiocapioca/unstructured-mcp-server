@@ -122,8 +122,18 @@ async def parse_batch(file_paths: list[str]) -> list[dict]:
     return results
 
 
+def create_server():
+    """
+    Create and return the FastMCP server instance.
+
+    This function is used by Smithery for deployment.
+    The tools are already registered on the global `mcp` instance.
+    """
+    return mcp
+
+
 def main():
-    """Entry point for the MCP server."""
+    """Entry point for the MCP server (standalone usage)."""
     mcp.run()
 
 

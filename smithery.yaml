@@ -1,0 +1,4 @@
+# Smithery configuration for MCP server
+# https://smithery.ai/docs/build/deployments/python
+
+runtime: "python"
