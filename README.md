@@ -17,6 +17,12 @@ This MCP server provides tools for parsing documents (PDF, DOCX, TXT, logs, etc.
 pip install unstructured-mcp-server
 ```
 
+Or with uv:
+
+```bash
+uv pip install unstructured-mcp-server
+```
+
 ## Usage
 
 ### As MCP Server
