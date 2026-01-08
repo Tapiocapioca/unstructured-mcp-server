@@ -1,4 +1,56 @@
-# Smithery configuration for MCP server
-# https://smithery.ai/docs/build/deployments/python
+name: unstructured-mcp-server
+displayName: Unstructured Document Parser
+description: FastMCP server for parsing documents (PDF, DOCX, TXT, logs) using Unstructured.io API
+version: 0.1.0
+author: Tapiocapioca
+homepage: https://github.com/Tapiocapioca/unstructured-mcp-server
+license: MIT
 
-runtime: "python"
+tags:
+  - documents
+  - parsing
+  - pdf
+  - docx
+  - unstructured
+
+runtime:
+  type: python
+  command: python
+  args:
+    - "-m"
+    - "unstructured_mcp"
+
+dependencies:
+  python: ">=3.10"
+  packages:
+    - fastmcp>=2.0.0
+    - httpx>=0.27.0
+    - smithery>=0.4.2
+
+tools:
+  - name: parse_document
+    description: Parse a single document (PDF, DOCX, TXT, logs) and extract text
+    parameters:
+      - name: file_path
+        type: string
+        required: true
+        description: Absolute path to file on host machine
+      - name: strategy
+        type: string
+        required: false
+        default: auto
+        description: Parsing strategy (auto, fast, hi_res, ocr_only)
+
+  - name: parse_batch
+    description: Parse multiple documents in batch
+    parameters:
+      - name: file_paths
+        type: array
+        items:
+          type: string
+        required: true
+        description: List of absolute paths to files
+
+prerequisites:
+  - description: Unstructured API container running on port 9104
+    command: docker ps --filter "name=unstructured-api"
